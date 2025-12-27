@@ -9,11 +9,14 @@
       background: #f5f5f5;
     }
 
-    .video-card {
-      width: 100%;
+    .feed {
       max-width: 400px;
-      margin: 20px auto;
+      margin: auto;
+    }
+
+    .video-card {
       background: white;
+      margin: 20px 0;
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -21,21 +24,10 @@
 
     video {
       width: 100%;
-      height: auto;
     }
 
     .content {
       padding: 15px;
-    }
-
-    .product-name {
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    .price {
-      color: green;
-      margin-top: 5px;
     }
 
     button {
@@ -46,24 +38,53 @@
       border: none;
       border-radius: 5px;
       margin-top: 10px;
-      cursor: pointer;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="video-card">
-    <video controls>
-      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-    </video>
+  <div class="feed" id="feed"></div>
 
-    <div class="content">
-      <div class="product-name">Demo Product</div>
-      <div class="price">₹999</div>
-      <button>Add to Cart</button>
-    </div>
-  </div>
+  <script>
+    // Video + Product data (fake for now)
+    const videos = [
+      {
+        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+        product: "Shoes",
+        price: "₹1999"
+      },
+      {
+        videoUrl: "https://www.w3schools.com/html/movie.mp4",
+        product: "T-Shirt",
+        price: "₹999"
+      }
+    ];
+
+    const feed = document.getElementById("feed");
+
+    videos.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "video-card";
+
+      card.innerHTML = `
+        <video controls>
+          <source src="${item.videoUrl}" type="video/mp4">
+        </video>
+        <div class="content">
+          <b>${item.product}</b><br>
+          ${item.price}
+          <button onclick="addToCart('${item.product}')">Add to Cart</button>
+        </div>
+      `;
+
+      feed.appendChild(card);
+    });
+
+    function addToCart(product) {
+      alert(product + " added to cart!");
+    }
+  </script>
 
 </body>
 </html>
